@@ -1,0 +1,49 @@
+.container {
+    padding: 20px;
+  }
+  
+  .order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .order-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .order-info text {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .order-photo image {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .loading, .no-more {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }

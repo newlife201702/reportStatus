@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="form-item">
+    <text class="label">订单单号：</text>
+    <text>{{purchaseOrder}}</text>
+  </view>
+  <view class="form-item">
+    <text class="label">序号：</text>
+    <text>{{serialNumber}}</text>
+  </view>
+  <view class="form-item">
+    <text class="label">公司订单号：</text>
+    <text>{{companyOrder}}</text>
+  </view>
+
+  <view class="form-item" wx:if="{{showPicker}}">
+    <text class="label">工序名称：</text>
+    <picker mode="selector" range="{{processOptions}}" bindchange="onProcessChange">
+      <view class="picker">{{selectedProcess || '请选择工序名称'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item" wx:if="{{showInput}}">
+    <text class="label">自定义工序：</text>
+    <input placeholder="请输入自定义工序名称" bindinput="onCustomProcessInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">上传照片：</text>
+    <button bindtap="uploadPhoto">上传照片</button>
+    <image wx:if="{{photoUrl}}" src="{{photoUrl}}" mode="aspectFill" class="photo" />
+  </view>
+
+  <button type="primary" bindtap="submitProcess">提交</button>
+</view>

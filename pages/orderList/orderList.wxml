@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="order-list">
+    <block wx:for="{{orders}}" wx:key="index">
+      <view class="order-item">
+        <view class="order-info">
+          <text>订单单号: {{item['订单单号']}}</text>
+          <text>序号: {{item['序号']}}</text>
+          <text>公司订单号: {{item['公司订单号']}}</text>
+          <text>加工状态: {{item['加工状态']}}</text>
+          <text>部门: {{item['部门']}}</text>
+        </view>
+        <view class="order-photo" wx:if="{{item['图片存储路径']}}">
+          <image src="{{item['图片存储路径']}}" mode="aspectFill"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 分页信息 -->
+  <view class="pagination">
+    <text>当前页: {{page}}</text>
+    <text>总条数: {{total}}</text>
+  </view>
+
+  <!-- 加载提示 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  <view class="no-more" wx:if="{{!hasMore}}">
+    <text>没有更多数据了</text>
+  </view>
+</view>
