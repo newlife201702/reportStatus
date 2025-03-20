@@ -4,6 +4,7 @@ Page({
     data: {
         showScanButton: false, // 是否显示“扫描二维码”按钮
         showViewButton: false, // 是否显示“查看订单”按钮
+      userName: null, // 用户名称
       userRole: null, // 用户角色
       userDepartment: null // 用户部门
     },
@@ -30,8 +31,9 @@ Page({
           if (res.data.error) {
             wx.showToast({ title: res.data.error, icon: 'none' });
           } else {
-            const { role, department } = res.data;
+            const { name, role, department } = res.data;
             this.setData({
+              userName: name,
               userRole: role,
               userDepartment: department
             });
@@ -63,6 +65,7 @@ Page({
   
     // 扫描二维码
     scanCode() {
+      const { userName, userDepartment } = this.data;
       wx.scanCode({
         success: (res) => {
           wx.request({
@@ -76,7 +79,11 @@ Page({
                 wx.navigateTo({
                     url: '/pages/reportStatus/reportStatus',
                     success: (res) => {
-                    res.eventChannel.emit('acceptData', response.data.data);
+                    res.eventChannel.emit('acceptData', {
+                      ...response.data.data,
+                      name: userName,
+                      department: userDepartment
+                    });
                     }
                 });
               } else if (response.data.status === 'completed') {

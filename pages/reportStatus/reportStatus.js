@@ -9,7 +9,9 @@ Page({
       customProcess: '', // 自定义工序名称
       photoUrl: '', // 上传的照片 URL
       showPicker: false, // 是否显示下拉框
-      showInput: false // 是否显示输入框
+      showInput: false, // 是否显示输入框
+      name: null, // 用户名称
+      department: null // 用户部门
     },
   
     onLoad(options) {
@@ -20,25 +22,28 @@ Page({
         this.setData({
           purchaseOrder: data.订单单号,
           serialNumber: data.序号,
-          companyOrder: data.公司订单号
+          companyOrder: data.公司订单号,
+          name: data.name,
+          department: data.department
         });
         // 加载工序名称下拉框选项
-        this.loadProcessOptions(data.图号, data.物料编码, data.图纸版本号);
+        this.loadProcessOptions(data.图号, data.物料编码, data.图纸版本号, data.订单单号, data.序号, data.公司订单号);
       });
     },
   
     // 加载工序名称下拉框选项
-    loadProcessOptions(drawingNumber, materialNumber, drawingVersion) {
+    loadProcessOptions(drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder) {
       wx.request({
         url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
         // url: 'http://localhost:2910/getProcessOptions',
         method: 'POST',
-        data: { drawingNumber, materialNumber, drawingVersion },
+        data: { drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder },
         success: (res) => {
           if (res.data.error) {
             wx.showToast({ title: res.data.error, icon: 'none' });
           } else {
             const processOptions = res.data.processOptions;
+            console.log('processOptions', processOptions);
             this.setData({
               processOptions,
               showPicker: processOptions.length > 0, // 如果有下拉选项，显示下拉框
@@ -81,7 +86,7 @@ Page({
   
     // 提交加工状态
     submitProcess() {
-      const { purchaseOrder, serialNumber, companyOrder, selectedProcess, customProcess, photoUrl, showPicker } = this.data;
+      const { purchaseOrder, serialNumber, companyOrder, selectedProcess, customProcess, photoUrl, showPicker, name, department } = this.data;
       const process = showPicker ? selectedProcess : customProcess;
   
       if (!process) {
@@ -93,7 +98,7 @@ Page({
         url: 'https://gongxuchaxun.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
-        data: { purchaseOrder, serialNumber, companyOrder, process, photoUrl },
+        data: { purchaseOrder, serialNumber, companyOrder, process, photoUrl, name, department },
         success: (res) => {
           if (res.data.success) {
             wx.showToast({ title: '上报成功' });
