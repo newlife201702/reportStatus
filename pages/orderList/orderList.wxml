@@ -2,6 +2,7 @@
   <!-- 筛选条件 -->
   <view class="filter">
     <input placeholder="请输入图号" bindinput="onDrawingNumberInput" />
+    <input placeholder="请输入名称" bindinput="onNameInput" />
     <button bindtap="applyFilter">筛选</button>
   </view>
   <!-- 订单列表 -->
@@ -15,6 +16,7 @@
           <text>加工状态: {{item['加工状态']}}</text>
           <text>部门: {{item['部门']}}</text>
           <text>图号: {{item['图号']}}</text>
+          <text>名称: {{item['名称']}}</text>
         </view>
         <view class="photo-list">
           <view wx:for="{{item.photoList}}" wx:key="index">

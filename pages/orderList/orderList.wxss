@@ -2,26 +2,28 @@
     padding: 20px;
   }
 
-  .filter {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .filter input {
-    flex: 1;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  
-  .filter button {
-    padding: 10px 20px;
-    background-color: #07c160;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-  }
+  /* 筛选条件 */
+.filter {
+  display: flex;
+  flex-direction: column; /* 改为纵向排列 */
+  gap: 10px; /* 设置元素之间的间距 */
+  margin-bottom: 20px;
+}
+
+.filter-input {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.filter-button {
+  padding: 10px 20px;
+  background-color: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+}
   
   .order-list {
     display: flex;

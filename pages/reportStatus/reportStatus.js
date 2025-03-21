@@ -4,6 +4,9 @@ Page({
       purchaseOrder: '', // 订单单号
       serialNumber: '', // 序号
       companyOrder: '', // 公司订单号
+      lineNumber: '', // 行号
+      drawingNumber: '', // 图号
+      orderName: '', // 名称
       processOptions: [], // 工序名称下拉框选项
       selectedProcess: '', // 选择的工序名称
       customProcess: '', // 自定义工序名称
@@ -23,6 +26,9 @@ Page({
           purchaseOrder: data.订单单号,
           serialNumber: data.序号,
           companyOrder: data.公司订单号,
+          lineNumber: data.行号,
+          drawingNumber: data.图号,
+          orderName: data.名称,
           name: data.name,
           department: data.department
         });
@@ -86,7 +92,7 @@ Page({
   
     // 提交加工状态
     submitProcess() {
-      const { purchaseOrder, serialNumber, companyOrder, selectedProcess, customProcess, photoUrl, showPicker, name, department } = this.data;
+      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, department } = this.data;
       const process = showPicker ? selectedProcess : customProcess;
   
       if (!process) {
@@ -98,7 +104,7 @@ Page({
         url: 'https://gongxuchaxun.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
-        data: { purchaseOrder, serialNumber, companyOrder, process, photoUrl, name, department },
+        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process, photoUrl, name, department },
         success: (res) => {
           if (res.data.success) {
             wx.showToast({ title: '上报成功' });

@@ -7,7 +7,8 @@ Page({
       total: 0, // 总条数
       loading: false, // 是否正在加载
       hasMore: true, // 是否还有更多数据
-      drawingNumber: '' // 图号筛选条件
+      drawingNumber: '', // 图号筛选条件
+      name: '' // 名称筛选条件
     },
   
     onLoad(options) {
@@ -28,6 +29,11 @@ Page({
       this.setData({ drawingNumber: e.detail.value });
     },
 
+    // 输入名称
+    onNameInput(e) {
+      this.setData({ name: e.detail.value });
+    },
+
     // 应用筛选条件
     applyFilter() {
       this.setData({
@@ -44,12 +50,12 @@ Page({
   
       this.setData({ loading: true });
   
-      const { role, department, page, pageSize, drawingNumber } = this.data;
+      const { role, department, page, pageSize, drawingNumber, name } = this.data;
       wx.request({
         url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrders',
         // url: 'http://localhost:2910/viewOrders',
         method: 'POST',
-        data: { role, department, page, pageSize, drawingNumber },
+        data: { role, department, page, pageSize, drawingNumber, name },
         success: (res) => {
           if (res.data.error) {
             wx.showToast({ title: res.data.error, icon: 'none' });
