@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="background-image: url('/assets/images/bg.jpg'); background-size: cover; background-position: center;">
   <button wx:if="{{showScanButton}}" bindtap="scanCode">扫描二维码</button>
   <button wx:if="{{showViewButton}}" bindtap="viewOrders">查看订单</button>
 </view>
