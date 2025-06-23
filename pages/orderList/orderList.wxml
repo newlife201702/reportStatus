@@ -11,13 +11,11 @@
     <block wx:for="{{orders}}" wx:key="index">
       <view class="order-item {{singleOrderView ? 'single-view' : ''}}">
         <view class="order-info">
-          <text>订单单号: {{item['订单单号']}}</text>
-          <text>序号: {{item['序号']}}</text>
-          <text>公司订单号: {{item['公司订单号']}}</text>
-          <text>加工状态: {{item['加工状态']}}</text>
           <text>部门: {{item['部门']}}</text>
-          <text>图号: {{item['图号']}}</text>
-          <text>名称: {{item['名称']}}</text>
+          <text>公司订单号: {{item['公司订单号']}}</text>
+          <text>名称/图号: {{item['名称']}}/{{item['图号']}}</text>
+          <text>行号: {{item['行号']}}</text>
+          <text>加工状态: {{item['加工状态']}}</text>
         </view>
         
         <view class="photo-list {{singleOrderView ? 'expanded' : ''}}">
