@@ -111,7 +111,8 @@ Page({
     
     // 调用接口提交数据
     wx.request({
-      url: 'https://gongxuchaxun.weimeigu.com.cn/saveUserInfo', // 根据实际接口修改
+      url: 'https://gongxuchaxun.weimeigu.com.cn/saveUserInfo',
+      // url: 'http://localhost:2910/saveUserInfo',
       method: 'POST',
       data: {
         openid: openid,
@@ -125,10 +126,10 @@ Page({
         if (res.statusCode === 200 && res.data.success) {
           this.showSuccess('提交成功');
           
-          // 提交成功后跳转到首页或其他页面
+          // 提交成功后跳转到首页
           setTimeout(() => {
-            wx.navigateBack({
-              delta: 1
+            wx.navigateTo({
+              url: '/pages/home/home'
             });
           }, 1500);
         } else {
