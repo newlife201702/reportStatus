@@ -1,26 +1,63 @@
 <view class="container">
   <view class="header">
-    <text class="title">用户信息</text>
+    <text class="title">用户信息登记</text>
   </view>
   
   <view class="form-group">
     <view class="form-item">
       <text class="label">姓名</text>
-      <input class="input" type="text" placeholder="请输入姓名" value="{{name}}" data-field="name" bindinput="inputChange" />
+      <view class="input-container {{focusField === 'name' ? 'active' : ''}}">
+        <view class="icon-wrapper">
+          <text class="iconfont">👤</text>
+        </view>
+        <input class="input" type="text" placeholder="请输入您的姓名" value="{{name}}" 
+          data-field="name" 
+          bindinput="inputChange" 
+          bindfocus="inputFocus"
+          bindblur="inputBlur" />
+      </view>
     </view>
     
     <view class="form-item">
       <text class="label">角色</text>
-      <input class="input" type="text" placeholder="请输入角色" value="{{role}}" data-field="role" bindinput="inputChange" />
+      <view class="input-container {{focusField === 'role' ? 'active' : ''}}">
+        <view class="icon-wrapper">
+          <text class="iconfont">🔑</text>
+        </view>
+        <input class="input" type="text" placeholder="请输入您的角色" value="{{role}}" 
+          data-field="role" 
+          bindinput="inputChange" 
+          bindfocus="inputFocus"
+          bindblur="inputBlur" />
+      </view>
     </view>
     
     <view class="form-item">
       <text class="label">部门</text>
-      <input class="input" type="text" placeholder="请输入部门" value="{{department}}" data-field="department" bindinput="inputChange" />
+      <view class="input-container {{focusField === 'department' ? 'active' : ''}}">
+        <view class="icon-wrapper">
+          <text class="iconfont">🏢</text>
+        </view>
+        <input class="input" type="text" placeholder="请输入您的部门" value="{{department}}" 
+          data-field="department" 
+          bindinput="inputChange" 
+          bindfocus="inputFocus"
+          bindblur="inputBlur" />
+      </view>
     </view>
   </view>
   
+  <view class="tips">
+    <text>请填写真实信息，提交后将与您的微信账号绑定</text>
+  </view>
+  
   <view class="button-container">
-    <button class="submit-button" type="primary" bindtap="submitForm">提交</button>
+    <button class="submit-button" type="primary" bindtap="submitForm" loading="{{submitLoading}}" disabled="{{submitLoading}}">
+      {{submitLoading ? '提交中...' : '提交信息'}}
+    </button>
+    
+    <view class="back-link" bindtap="backToHome">
+      <text>返回首页</text>
+    </view>
   </view>
 </view> 

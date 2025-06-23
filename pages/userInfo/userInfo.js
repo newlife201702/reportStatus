@@ -6,12 +6,23 @@ Page({
     name: '',
     role: '',
     department: '',
-    openid: ''
+    openid: '',
+    submitLoading: false,
+    focusField: '' // 当前焦点输入框
   },
   
   onLoad: function() {
     // 获取用户的openid
     this.getOpenid();
+  },
+  
+  // 分享给好友
+  onShareAppMessage: function () {
+    return {
+      title: '请填写您的用户信息',
+      path: '/pages/userInfo/userInfo',
+      imageUrl: '/assets/images/bg.jpg'
+    }
   },
   
   // 获取用户openid
@@ -33,11 +44,33 @@ Page({
     }
   },
   
+  // 输入框获取焦点
+  inputFocus: function(e) {
+    const { field } = e.currentTarget.dataset;
+    this.setData({
+      focusField: field
+    });
+  },
+  
+  // 输入框失去焦点
+  inputBlur: function() {
+    this.setData({
+      focusField: ''
+    });
+  },
+  
   // 输入框内容变化时触发
   inputChange: function(e) {
     const { field } = e.currentTarget.dataset;
     this.setData({
       [field]: e.detail.value
+    });
+  },
+  
+  // 返回首页
+  backToHome: function() {
+    wx.navigateTo({
+      url: '/pages/home/home'
     });
   },
   
@@ -47,36 +80,29 @@ Page({
     
     // 表单验证
     if (!name.trim()) {
-      wx.showToast({
-        title: '请输入姓名',
-        icon: 'none'
-      });
+      this.showToast('请输入姓名');
       return;
     }
     
     if (!role.trim()) {
-      wx.showToast({
-        title: '请输入角色',
-        icon: 'none'
-      });
+      this.showToast('请输入角色');
       return;
     }
     
     if (!department.trim()) {
-      wx.showToast({
-        title: '请输入部门',
-        icon: 'none'
-      });
+      this.showToast('请输入部门');
       return;
     }
     
     if (!openid) {
-      wx.showToast({
-        title: '获取用户信息失败，请重试',
-        icon: 'none'
-      });
+      this.showToast('获取用户信息失败，请重试');
       return;
     }
+    
+    // 设置提交状态
+    this.setData({
+      submitLoading: true
+    });
     
     // 显示加载提示
     wx.showLoading({
@@ -97,10 +123,7 @@ Page({
         wx.hideLoading();
         
         if (res.statusCode === 200 && res.data.success) {
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success'
-          });
+          this.showSuccess('提交成功');
           
           // 提交成功后跳转到首页或其他页面
           setTimeout(() => {
@@ -109,20 +132,37 @@ Page({
             });
           }, 1500);
         } else {
-          wx.showToast({
-            title: res.data.message || '提交失败，请重试',
-            icon: 'none'
-          });
+          this.showToast(res.data.message || '提交失败，请重试');
         }
       },
       fail: (err) => {
         wx.hideLoading();
         console.error('提交失败', err);
-        wx.showToast({
-          title: '网络错误，请重试',
-          icon: 'none'
+        this.showToast('网络错误，请重试');
+      },
+      complete: () => {
+        this.setData({
+          submitLoading: false
         });
       }
+    });
+  },
+  
+  // 显示普通提示
+  showToast: function(title) {
+    wx.showToast({
+      title: title,
+      icon: 'none',
+      duration: 2000
+    });
+  },
+  
+  // 显示成功提示
+  showSuccess: function(title) {
+    wx.showToast({
+      title: title,
+      icon: 'success',
+      duration: 2000
     });
   }
 }) 

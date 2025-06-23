@@ -10,11 +10,17 @@ Page({
     },
   
     onLoad() {
+      // 如果app.globalData中已有openid，直接使用
+      if (app.globalData.openid) {
+        this.setData({ openid: app.globalData.openid });
+        this.checkUserRole();
+      } else {
         // 监听 openid 更新
         app.onOpenidUpdate((openid) => {
             this.setData({ openid });
             this.checkUserRole();
         });
+      }
     },
   
     // 检查用户角色
