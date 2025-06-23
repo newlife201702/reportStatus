@@ -8,7 +8,12 @@ Page({
       loading: false, // 是否正在加载
       hasMore: true, // 是否还有更多数据
       drawingNumber: '', // 图号筛选条件
-      name: '' // 名称筛选条件
+      name: '', // 名称筛选条件
+      singleOrderView: false, // 是否为单个订单查看模式
+      // 查看的单个订单信息
+      purchaseOrder: '', // 订单单号
+      serialNumber: '', // 序号
+      companyOrder: '', // 公司订单号
     },
   
     onLoad(options) {
@@ -18,9 +23,22 @@ Page({
       eventChannel.on('acceptData', (data) => {
         this.setData({
           role: data.role,
-          department: data.department
+          department: data.department,
+          singleOrderView: data.singleOrderView || false,
+          purchaseOrder: data.订单单号,
+          serialNumber: data.序号,
+          companyOrder: data.公司订单号,
         });
-        this.loadOrders(); // 加载第一页数据
+        
+        // 根据模式选择加载方式
+        if (this.data.singleOrderView && this.data.purchaseOrder && this.data.serialNumber && this.data.companyOrder) {
+          this.loadSingleOrder(); // 加载单个订单
+          wx.setNavigationBarTitle({
+            title: '订单详情'
+          });
+        } else {
+          this.loadOrders(); // 加载订单列表
+        }
       });
     },
 
@@ -42,6 +60,55 @@ Page({
         hasMore: true // 重置是否有更多数据
       });
       this.loadOrders(); // 重新加载数据
+    },
+    
+    // 加载单个订单数据
+    loadSingleOrder() {
+      if (this.data.loading) return;
+      
+      this.setData({ loading: true });
+      
+      const { role, department, purchaseOrder, serialNumber, companyOrder } = this.data;
+      wx.request({
+        url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrder',
+        // url: 'http://localhost:2910/viewOrder',
+        method: 'POST',
+        data: { role, department, purchaseOrder, serialNumber, companyOrder },
+        success: (res) => {
+          if (res.data.error) {
+            wx.showToast({ title: res.data.error, icon: 'none' });
+          } else if (res.data.success === false) {
+            // 订单不存在
+            wx.showToast({ title: '订单不存在', icon: 'none' });
+            // 延迟返回上一页
+            setTimeout(() => {
+              wx.navigateBack({ delta: 1 });
+            }, 1500);
+          } else if (res.data.success === true && res.data.order) {
+            // 订单存在，显示详情
+            const order = res.data.order;
+            // 处理照片路径
+            const orderWithPhotos = {
+              ...order,
+              photoList: order['图片存储路径'] ? order['图片存储路径'].split('→').filter(path => path.split('号')[1]).map(item => ({
+                date: item.split('号')[0],
+                url: item.split('号')[1]
+              })) : []
+            };
+            
+            this.setData({
+              orders: [orderWithPhotos], // 只设置这一个订单
+              hasMore: false // 单个订单模式没有更多数据
+            });
+          }
+        },
+        fail: (err) => {
+          wx.showToast({ title: '网络请求失败', icon: 'none' });
+        },
+        complete: () => {
+          this.setData({ loading: false });
+        }
+      });
     },
   
     // 加载订单数据
@@ -87,6 +154,8 @@ Page({
   
     // 上拉加载更多
     onReachBottom() {
-      this.loadOrders();
+      if (!this.data.singleOrderView) {
+        this.loadOrders();
+      }
     }
   });

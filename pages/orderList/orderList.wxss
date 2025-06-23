@@ -25,54 +25,107 @@
   text-align: center;
 }
   
-  .order-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
   
-  .order-item {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .order-info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .order-info text {
-    font-size: 14px;
-    color: #333;
-  }
+.order-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
 
-  .photo-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-  }
+/* 单个订单查看模式下的样式 */
+.order-item.single-view {
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+  
+.order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+  
+.order-info text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
 
-  .photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-  }
+/* 单个订单模式下的特殊字段样式 */
+.process-info, .remarks-info, .status-remarks {
+  background-color: #f0f8ff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.status-remarks {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.photo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.photo-list.expanded {
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.photo-title {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.photo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.photo-item text {
+  margin-bottom: 5px;
+  color: #666;
+  font-size: 12px;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.no-photo {
+  color: #999;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+}
   
-  .pagination {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
-  }
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
   
-  .loading, .no-more {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
-  }
+.loading, .no-more {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
