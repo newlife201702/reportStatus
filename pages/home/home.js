@@ -118,8 +118,8 @@ Page({
             method: 'POST',
             data: { qrCodeData: res.result },
             success: (response) => {
-              if (response.data.status === 'found' || response.data.status === 'completed') {
-                // 管理员可以查看任何状态的订单详情
+              if (response.data.status === 'found') {
+                // 管理员可以查看未完成状态的订单详情
                 wx.navigateTo({
                   url: '/pages/orderList/orderList',
                   success: (res) => {
@@ -132,7 +132,9 @@ Page({
                     });
                   }
                 });
-              } else {
+              } else if (response.data.status === 'completed') {
+                wx.showToast({ title: '订单已完成', icon: 'none' });
+              } else if (response.data.status === 'not_found') {
                 wx.showToast({ title: '订单不存在', icon: 'none' });
               }
             },
