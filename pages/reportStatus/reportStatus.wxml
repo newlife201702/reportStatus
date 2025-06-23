@@ -12,6 +12,12 @@
     <text>{{companyOrder}}</text>
   </view>
 
+  <view class="form-item restart-checkbox-container">
+    <label>
+      <checkbox checked="{{isRestart}}" bindtap="onRestartChange">重新开始</checkbox>
+    </label>
+  </view>
+
   <view class="form-item" wx:if="{{showPicker}}">
     <text class="label">工序名称：</text>
     <picker mode="selector" range="{{processOptions}}" bindchange="onProcessChange">

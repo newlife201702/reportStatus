@@ -8,13 +8,16 @@ Page({
       drawingNumber: '', // 图号
       orderName: '', // 名称
       processOptions: [], // 工序名称下拉框选项
+      normalProcessOptions: [], // 正常工序名称下拉框选项
+      restartProcessOptions: [], // 重新开始工序名称下拉框选项
       selectedProcess: '', // 选择的工序名称
       customProcess: '', // 自定义工序名称
       photoUrl: '', // 上传的照片 URL
       showPicker: false, // 是否显示下拉框
       showInput: false, // 是否显示输入框
       name: null, // 用户名称
-      department: null // 用户部门
+      department: null, // 用户部门
+      isRestart: false, // 重新开始标志
     },
   
     onLoad(options) {
@@ -36,12 +39,24 @@ Page({
         this.loadProcessOptions(data.图号, data.物料编码, data.图纸版本号, data.订单单号, data.序号, data.公司订单号);
       });
     },
+    
+    // 重新开始复选框点击处理
+    onRestartChange() {
+      // 由于使用bindtap，需要手动切换状态
+      const newIsRestart = !this.data.isRestart;
+      
+      this.setData({
+        isRestart: newIsRestart,
+        processOptions: newIsRestart ? this.data.restartProcessOptions : this.data.normalProcessOptions,
+        selectedProcess: '' // 清空已选工序
+      });
+    },
   
     // 加载工序名称下拉框选项
     loadProcessOptions(drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder) {
       wx.request({
-        url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
-        // url: 'http://localhost:2910/getProcessOptions',
+        // url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
+        url: 'http://localhost:2910/getProcessOptions',
         method: 'POST',
         data: { drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder },
         success: (res) => {
@@ -49,9 +64,13 @@ Page({
             wx.showToast({ title: res.data.error, icon: 'none' });
           } else {
             const processOptions = res.data.processOptions;
+            const restartProcessOptions = res.data.restartProcessOptions;
             console.log('processOptions', processOptions);
+            console.log('restartProcessOptions', restartProcessOptions);
             this.setData({
               processOptions,
+              normalProcessOptions: processOptions,
+              restartProcessOptions,
               showPicker: processOptions.length > 0, // 如果有下拉选项，显示下拉框
               showInput: processOptions.length === 0 // 如果没有下拉选项，显示输入框
             });
