@@ -3,6 +3,7 @@
     "pages/home/home",
     "pages/orderList/orderList",
     "pages/reportStatus/reportStatus",
+    "pages/userInfo/userInfo",
     "pages/index/index",
     "pages/logs/logs"
   ],
