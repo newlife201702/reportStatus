@@ -10,6 +10,7 @@ Page({
       processOptions: [], // 工序名称下拉框选项
       normalProcessOptions: [], // 正常工序名称下拉框选项
       restartProcessOptions: [], // 重新开始工序名称下拉框选项
+      alreadyProcessOptions: [], // 已加工工序名称下拉框选项
       selectedProcess: '', // 选择的工序名称
       customProcess: '', // 自定义工序名称
       photoUrl: '', // 上传的照片 URL
@@ -55,8 +56,8 @@ Page({
     // 加载工序名称下拉框选项
     loadProcessOptions(drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder) {
       wx.request({
-        // url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
-        url: 'http://localhost:2910/getProcessOptions',
+        url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
+        // url: 'http://localhost:2910/getProcessOptions',
         method: 'POST',
         data: { drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder },
         success: (res) => {
@@ -65,12 +66,15 @@ Page({
           } else {
             const processOptions = res.data.processOptions;
             const restartProcessOptions = res.data.restartProcessOptions;
+            const alreadyProcessOptions = res.data.alreadyProcessOptions;
             console.log('processOptions', processOptions);
             console.log('restartProcessOptions', restartProcessOptions);
+            console.log('alreadyProcessOptions', alreadyProcessOptions);
             this.setData({
               processOptions,
               normalProcessOptions: processOptions,
               restartProcessOptions,
+              alreadyProcessOptions,
               showPicker: processOptions.length > 0, // 如果有下拉选项，显示下拉框
               showInput: processOptions.length === 0 // 如果没有下拉选项，显示输入框
             });

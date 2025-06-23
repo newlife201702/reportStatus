@@ -54,3 +54,46 @@
     align-items: center;
     width: 100%;
   }
+
+  /* 状态信息样式 */
+  .status-info {
+    margin-top: 30rpx;
+    padding: 20rpx;
+    background-color: #f5f5f5;
+    border-radius: 10rpx;
+    box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  }
+
+  .info-item {
+    margin-bottom: 20rpx;
+  }
+
+  .info-label {
+    font-weight: bold;
+    font-size: 28rpx;
+    color: #333;
+    display: block;
+    margin-bottom: 10rpx;
+  }
+
+  .info-content {
+    padding: 10rpx;
+    background-color: #fff;
+    border-radius: 6rpx;
+  }
+
+  .process-item {
+    padding: 10rpx;
+    margin: 6rpx 0;
+    background-color: #e6f7ff;
+    border-radius: 4rpx;
+    font-size: 26rpx;
+    color: #0066cc;
+  }
+
+  .empty-tip {
+    font-size: 26rpx;
+    color: #999;
+    padding: 10rpx;
+    text-align: center;
+  }

@@ -1,11 +1,11 @@
 <view class="container">
   <view class="form-item">
-    <text class="label">订单单号：</text>
-    <text>{{purchaseOrder}}</text>
+    <text class="label">图号/名称：</text>
+    <text>{{drawingNumber}}/{{orderName}}</text>
   </view>
   <view class="form-item">
-    <text class="label">序号：</text>
-    <text>{{serialNumber}}</text>
+    <text class="label">行号：</text>
+    <text>{{lineNumber}}</text>
   </view>
   <view class="form-item">
     <text class="label">公司订单号：</text>
@@ -37,4 +37,24 @@
   </view>
 
   <button type="primary" bindtap="submitProcess">提交</button>
+  
+  <view class="status-info">
+    <view class="info-item">
+      <text class="info-label">已完成的状态：</text>
+      <view class="info-content">
+        <block wx:if="{{alreadyProcessOptions.length > 0}}">
+          <view wx:for="{{alreadyProcessOptions}}" wx:key="index" class="process-item">{{item}}</view>
+        </block>
+        <view wx:else class="empty-tip">暂无已完成的状态</view>
+      </view>
+    </view>
+    
+    <view class="info-item">
+      <text class="info-label">待加工的工序：</text>
+      <view class="info-content">
+        <view wx:if="{{processOptions.length > 0}}" class="process-item">{{processOptions[0]}}</view>
+        <view wx:else class="empty-tip">暂无待加工的工序</view>
+      </view>
+    </view>
+  </view>
 </view>
