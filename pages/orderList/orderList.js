@@ -7,13 +7,16 @@ Page({
       total: 0, // 总条数
       loading: false, // 是否正在加载
       hasMore: true, // 是否还有更多数据
+      customerCode: '', // 客户编码筛选条件
+      companyOrder: '', // 公司订单号筛选条件
+      lineNumber: '', // 行号筛选条件
       drawingNumber: '', // 图号筛选条件
       name: '', // 名称筛选条件
       singleOrderView: false, // 是否为单个订单查看模式
       // 查看的单个订单信息
       purchaseOrder: '', // 订单单号
       serialNumber: '', // 序号
-      companyOrder: '', // 公司订单号
+      singleCompanyOrder: '', // 单个订单的公司订单号
     },
   
     onLoad(options) {
@@ -27,11 +30,11 @@ Page({
           singleOrderView: data.singleOrderView || false,
           purchaseOrder: data.订单单号,
           serialNumber: data.序号,
-          companyOrder: data.公司订单号,
+          singleCompanyOrder: data.公司订单号,
         });
         
         // 根据模式选择加载方式
-        if (this.data.singleOrderView && this.data.purchaseOrder && this.data.serialNumber && this.data.companyOrder) {
+        if (this.data.singleOrderView && this.data.purchaseOrder && this.data.serialNumber && this.data.singleCompanyOrder) {
           this.loadSingleOrder(); // 加载单个订单
           wx.setNavigationBarTitle({
             title: '订单详情'
@@ -40,6 +43,21 @@ Page({
           this.loadOrders(); // 加载订单列表
         }
       });
+    },
+
+    // 输入客户编码
+    onCustomerCodeInput(e) {
+      this.setData({ customerCode: e.detail.value });
+    },
+
+    // 输入公司订单号
+    onCompanyOrderInput(e) {
+      this.setData({ companyOrder: e.detail.value });
+    },
+
+    // 输入行号
+    onLineNumberInput(e) {
+      this.setData({ lineNumber: e.detail.value });
     },
 
     // 输入图号
@@ -68,12 +86,12 @@ Page({
       
       this.setData({ loading: true });
       
-      const { role, department, purchaseOrder, serialNumber, companyOrder } = this.data;
+      const { role, department, purchaseOrder, serialNumber, singleCompanyOrder } = this.data;
       wx.request({
         url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrder',
         // url: 'http://localhost:2910/viewOrder',
         method: 'POST',
-        data: { role, department, purchaseOrder, serialNumber, companyOrder },
+        data: { role, department, purchaseOrder, serialNumber, companyOrder: singleCompanyOrder },
         success: (res) => {
           if (res.data.error) {
             wx.showToast({ title: res.data.error, icon: 'none' });
@@ -117,12 +135,12 @@ Page({
   
       this.setData({ loading: true });
   
-      const { role, department, page, pageSize, drawingNumber, name } = this.data;
+      const { role, department, page, pageSize, customerCode, companyOrder, lineNumber, drawingNumber, name } = this.data;
       wx.request({
         url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrders',
         // url: 'http://localhost:2910/viewOrders',
         method: 'POST',
-        data: { role, department, page, pageSize, drawingNumber, name },
+        data: { role, department, page, pageSize, customerCode, companyOrder, lineNumber, drawingNumber, name },
         success: (res) => {
           if (res.data.error) {
             wx.showToast({ title: res.data.error, icon: 'none' });

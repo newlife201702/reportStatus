@@ -1,6 +1,9 @@
 <view class="container">
   <!-- 筛选条件（仅在列表模式显示） -->
   <view class="filter" wx:if="{{!singleOrderView}}">
+    <input placeholder="请输入客户编码" bindinput="onCustomerCodeInput" />
+    <input placeholder="请输入公司订单号" bindinput="onCompanyOrderInput" />
+    <input placeholder="请输入行号" bindinput="onLineNumberInput" />
     <input placeholder="请输入图号" bindinput="onDrawingNumberInput" />
     <input placeholder="请输入名称" bindinput="onNameInput" />
     <button bindtap="applyFilter">筛选</button>
