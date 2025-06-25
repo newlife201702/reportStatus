@@ -51,6 +51,29 @@ Page({
         processOptions: newIsRestart ? this.data.restartProcessOptions : this.data.normalProcessOptions,
         selectedProcess: '' // 清空已选工序
       });
+      
+      // 如果开启了重新开始并且有显示选择器
+      if (newIsRestart && this.data.showPicker) {
+        // 计算已经报废的次数：统计alreadyProcessOptions中包含restartProcessOptions第一项的个数
+        let scrapCount = 0;
+        const firstRestartOption = this.data.restartProcessOptions[0];
+        
+        if (firstRestartOption) {
+          // 遍历已加工工序，计算报废次数
+          this.data.alreadyProcessOptions.forEach(process => {
+            if (process === firstRestartOption) {
+              scrapCount++;
+            }
+          });
+          
+          // 显示报废次数提示
+          wx.showToast({
+            title: `第${scrapCount}次报废`,
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
     },
   
     // 加载工序名称下拉框选项
