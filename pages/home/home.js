@@ -29,7 +29,7 @@ Page({
         const openid = this.data.openid;
       console.log('openid', openid);
       wx.request({
-        url: 'https://gongxuchaxun.weimeigu.com.cn/auth',
+        url: 'https://gongxuchaxun2.weimeigu.com.cn/auth',
         // url: 'http://localhost:2910/auth',
         method: 'POST',
         data: { openid },
@@ -79,7 +79,7 @@ Page({
       wx.scanCode({
         success: (res) => {
           wx.request({
-            url: 'https://gongxuchaxun.weimeigu.com.cn/scan',
+            url: 'https://gongxuchaxun2.weimeigu.com.cn/scan',
             // url: 'http://localhost:2910/scan',
             method: 'POST',
             data: { qrCodeData: res.result },
@@ -113,7 +113,7 @@ Page({
       wx.scanCode({
         success: (res) => {
           wx.request({
-            url: 'https://gongxuchaxun.weimeigu.com.cn/adminScan',
+            url: 'https://gongxuchaxun2.weimeigu.com.cn/adminScan',
             // url: 'http://localhost:2910/adminScan',
             method: 'POST',
             data: { qrCodeData: res.result },

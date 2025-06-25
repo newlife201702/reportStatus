@@ -9,7 +9,7 @@ App({
       success: (res) => {
         if (res.code) {
           wx.request({
-            url: 'https://gongxuchaxun.weimeigu.com.cn/getOpenid',
+            url: 'https://gongxuchaxun2.weimeigu.com.cn/getOpenid',
             // url: 'http://localhost:2910/getOpenid',
             method: 'POST',
             data: { code: res.code },
