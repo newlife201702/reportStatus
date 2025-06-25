@@ -100,7 +100,7 @@ Page({
         success: (res) => {
           const tempFilePath = res.tempFilePaths[0];
           wx.uploadFile({
-            url: 'https://gongxuchaxun2.weimeigu.com.cn/uploadPhoto',
+            url: 'https://gongxuchaxun.weimeigu.com.cn/uploadPhoto',
             // url: 'http://localhost:2910/uploadPhoto',
             filePath: tempFilePath,
             name: 'photo',
