@@ -140,7 +140,7 @@ Page({
   
     // 提交加工状态
     submitProcess() {
-      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, orderDepartment } = this.data;
+      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, orderDepartment, isRestart } = this.data;
       const process = showPicker ? selectedProcess : customProcess;
   
       if (!process) {
@@ -152,7 +152,7 @@ Page({
         url: 'https://gongxuchaxun2.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
-        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process, photoUrl, name, department: orderDepartment },
+        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process: isRestart ? process + '(零件报废)' : process, photoUrl, name, department: orderDepartment },
         success: (res) => {
           if (res.data.success) {
             wx.showToast({ title: '上报成功' });
