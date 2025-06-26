@@ -84,10 +84,11 @@ Page({
       return;
     }
     
-    if (!role.trim()) {
-      this.showToast('请输入角色');
-      return;
-    }
+    // 角色不需要验证，因为是固定值
+    // if (!role.trim()) {
+    //   this.showToast('请输入角色');
+    //   return;
+    // }
     
     if (!department.trim()) {
       this.showToast('请输入部门');
@@ -117,7 +118,8 @@ Page({
       data: {
         openid: openid,
         name: name,
-        role: role,
+        // role: role,
+        role: '用户', // 使用固定的角色值
         department: department
       },
       success: (res) => {

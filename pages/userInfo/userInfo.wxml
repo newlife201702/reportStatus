@@ -18,6 +18,7 @@
       </view>
     </view>
     
+    <!-- 角色表单项已注释
     <view class="form-item">
       <text class="label">角色</text>
       <view class="input-container {{focusField === 'role' ? 'active' : ''}}">
@@ -31,6 +32,7 @@
           bindblur="inputBlur" />
       </view>
     </view>
+    -->
     
     <view class="form-item">
       <text class="label">部门</text>
