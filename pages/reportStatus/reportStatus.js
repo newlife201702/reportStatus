@@ -51,30 +51,28 @@ Page({
       this.setData({
         isRestart: newIsRestart,
         processOptions: newIsRestart ? this.data.restartProcessOptions : this.data.normalProcessOptions,
-        selectedProcess: '' // 清空已选工序
+        selectedProcess: '', // 清空已选工序
+        customProcess: '' // 清空已输入工序
       });
       
-      // 如果开启了重新开始并且有显示选择器
-      if (newIsRestart && this.data.showPicker) {
-        // 计算已经报废的次数：统计alreadyProcessOptions中包含restartProcessOptions第一项的个数
+      // 只要开启了重新开始就进行提示
+      if (newIsRestart) {
+        // 计算已经报废的次数：统计alreadyProcessOptions中包含"(零件报废)"的个数加1
         let scrapCount = 0;
-        const firstRestartOption = this.data.restartProcessOptions[0];
         
-        if (firstRestartOption) {
-          // 遍历已加工工序，计算报废次数
-          this.data.alreadyProcessOptions.forEach(process => {
-            if (process === firstRestartOption) {
-              scrapCount++;
-            }
-          });
-          
-          // 显示报废次数提示
-          wx.showToast({
-            title: `第${scrapCount}次报废`,
-            icon: 'none',
-            duration: 2000
-          });
-        }
+        // 遍历已加工工序，计算报废次数
+        this.data.alreadyProcessOptions.forEach(process => {
+          if (process.includes('(零件报废)')) {
+            scrapCount++;
+          }
+        });
+        
+        // 显示报废次数提示，次数加1表示当前的这次
+        wx.showToast({
+          title: `第${scrapCount + 1}次报废`,
+          icon: 'none',
+          duration: 2000
+        });
       }
     },
   
