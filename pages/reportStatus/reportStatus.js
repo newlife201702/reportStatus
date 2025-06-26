@@ -18,6 +18,7 @@ Page({
       showInput: false, // 是否显示输入框
       name: null, // 用户名称
       department: null, // 用户部门
+      orderDepartment: null, // 订单部门
       isRestart: false, // 重新开始标志
     },
   
@@ -34,7 +35,8 @@ Page({
           drawingNumber: data.图号,
           orderName: data.名称,
           name: data.name,
-          department: data.department
+          department: data.department,
+          orderDepartment: data.加工部门
         });
         // 加载工序名称下拉框选项
         this.loadProcessOptions(data.图号, data.物料编码, data.图纸版本号, data.订单单号, data.序号, data.公司订单号);
@@ -138,7 +140,7 @@ Page({
   
     // 提交加工状态
     submitProcess() {
-      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, department } = this.data;
+      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, orderDepartment } = this.data;
       const process = showPicker ? selectedProcess : customProcess;
   
       if (!process) {
@@ -150,7 +152,7 @@ Page({
         url: 'https://gongxuchaxun2.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
-        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process, photoUrl, name, department },
+        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process, photoUrl, name, department: orderDepartment },
         success: (res) => {
           if (res.data.success) {
             wx.showToast({ title: '上报成功' });
