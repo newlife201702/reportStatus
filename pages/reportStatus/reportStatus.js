@@ -79,7 +79,7 @@ Page({
     // 加载工序名称下拉框选项
     loadProcessOptions(drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder) {
       wx.request({
-        url: 'https://gongxuchaxun2.weimeigu.com.cn/getProcessOptions',
+        url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
         // url: 'http://localhost:2910/getProcessOptions',
         method: 'POST',
         data: { drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder },
@@ -147,7 +147,7 @@ Page({
       }
   
       wx.request({
-        url: 'https://gongxuchaxun2.weimeigu.com.cn/reportStatus',
+        url: 'https://gongxuchaxun.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
         data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process: isRestart ? process + '(零件报废)' : process, photoUrl, name, department: orderDepartment },

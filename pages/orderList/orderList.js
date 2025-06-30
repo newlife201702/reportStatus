@@ -88,7 +88,7 @@ Page({
       
       const { role, department, purchaseOrder, serialNumber, singleCompanyOrder } = this.data;
       wx.request({
-        url: 'https://gongxuchaxun2.weimeigu.com.cn/viewOrder',
+        url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrder',
         // url: 'http://localhost:2910/viewOrder',
         method: 'POST',
         data: { role, department, purchaseOrder, serialNumber, companyOrder: singleCompanyOrder },
@@ -137,7 +137,7 @@ Page({
   
       const { role, department, page, pageSize, customerCode, companyOrder, lineNumber, drawingNumber, name } = this.data;
       wx.request({
-        url: 'https://gongxuchaxun2.weimeigu.com.cn/viewOrders',
+        url: 'https://gongxuchaxun.weimeigu.com.cn/viewOrders',
         // url: 'http://localhost:2910/viewOrders',
         method: 'POST',
         data: { role, department, page, pageSize, customerCode, companyOrder, lineNumber, drawingNumber, name },
