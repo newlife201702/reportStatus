@@ -7,6 +7,8 @@ Page({
       lineNumber: '', // 行号
       drawingNumber: '', // 图号
       orderName: '', // 名称
+      customerCode: '', // 客户编码
+      materialCode: '', // 物料编码
       processOptions: [], // 工序名称下拉框选项
       normalProcessOptions: [], // 正常工序名称下拉框选项
       restartProcessOptions: [], // 重新开始工序名称下拉框选项
@@ -34,6 +36,8 @@ Page({
           lineNumber: data.行号,
           drawingNumber: data.图号,
           orderName: data.名称,
+          customerCode: data.客户编码,
+          materialCode: data.物料编码,
           name: data.name,
           department: data.department,
           orderDepartment: data.加工部门
@@ -138,7 +142,7 @@ Page({
   
     // 提交加工状态
     submitProcess() {
-      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, orderDepartment, isRestart } = this.data;
+      const { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, selectedProcess, customProcess, photoUrl, showPicker, name, orderDepartment, isRestart, customerCode, materialCode } = this.data;
       const process = showPicker ? selectedProcess : customProcess;
   
       if (!process) {
@@ -150,7 +154,7 @@ Page({
         url: 'https://gongxuchaxun.weimeigu.com.cn/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
-        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process: isRestart ? process + '(零件报废)' : process, photoUrl, name, department: orderDepartment },
+        data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process: isRestart ? process + '(零件报废)' : process, photoUrl, name, department: orderDepartment, customerCode, materialCode },
         success: (res) => {
           if (res.data.success) {
             wx.showToast({ title: '上报成功' });
