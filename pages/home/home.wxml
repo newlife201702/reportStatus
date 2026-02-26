@@ -1,4 +1,4 @@
-<view class="container" style="background-image: url('https://gongxuchaxun.weimeigu.com.cn/uploads/bg.jpg'); background-size: cover; background-position: center;">
+<view class="container" style="background-image: url('https://www.yangyijin.asia/uploads/bg.jpg'); background-size: cover; background-position: center;">
   <button wx:if="{{showScanButton}}" bindtap="scanCode">扫描二维码</button>
   <button wx:if="{{showViewButton}}" bindtap="viewOrders" style="margin-bottom: 20rpx;">查看订单</button>
   <button wx:if="{{showAdminScanButton}}" bindtap="adminScanCode">扫码查看</button>

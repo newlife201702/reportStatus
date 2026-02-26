@@ -83,7 +83,7 @@ Page({
     // 加载工序名称下拉框选项
     loadProcessOptions(drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder) {
       wx.request({
-        url: 'https://gongxuchaxun.weimeigu.com.cn/getProcessOptions',
+        url: 'https://www.yangyijin.asia/getProcessOptions',
         // url: 'http://localhost:2910/getProcessOptions',
         method: 'POST',
         data: { drawingNumber, materialNumber, drawingVersion, purchaseOrder, serialNumber, companyOrder },
@@ -127,7 +127,7 @@ Page({
         success: (res) => {
           const tempFilePath = res.tempFilePaths[0];
           wx.uploadFile({
-            url: 'https://gongxuchaxun.weimeigu.com.cn/uploadPhoto',
+            url: 'https://www.yangyijin.asia/uploadPhoto',
             // url: 'http://localhost:2910/uploadPhoto',
             filePath: tempFilePath,
             name: 'photo',
@@ -151,7 +151,7 @@ Page({
       }
   
       wx.request({
-        url: 'https://gongxuchaxun.weimeigu.com.cn/reportStatus',
+        url: 'https://www.yangyijin.asia/reportStatus',
         // url: 'http://localhost:2910/reportStatus',
         method: 'POST',
         data: { purchaseOrder, serialNumber, companyOrder, lineNumber, drawingNumber, orderName, process: isRestart ? process + '(零件报废)' : process, photoUrl, name, department: orderDepartment, customerCode, materialCode },

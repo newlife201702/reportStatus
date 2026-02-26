@@ -112,7 +112,7 @@ Page({
     
     // 调用接口提交数据
     wx.request({
-      url: 'https://gongxuchaxun.weimeigu.com.cn/saveUserInfo',
+      url: 'https://www.yangyijin.asia/saveUserInfo',
       // url: 'http://localhost:2910/saveUserInfo',
       method: 'POST',
       data: {
